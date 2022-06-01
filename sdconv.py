@@ -168,7 +168,18 @@ if __name__ == "__main__":
         if not input.exists():
             raise Exception(f"Invalid path: {input}")
 
+    print("Launch configuration:")
+    print()
     print(f"Queuing {len(inputs)} input files")
+    print(f"Output directory: {output_dir}")
+    print(f"Renaming: {rename}")
+    print(f"Cutoff size: {cutoff_size}")
+    print(f"Using profile: {profile}")
+    print(f"Using preset: {preset}")
+    print(f"Encoding: {encode}")
+    print(f"Force overwrite: {force}")
+    print(f"Output file suffix: {final_suffix}")
+    print()
 
     for input in inputs:
         print(f"Processing: {input}")
