@@ -8,12 +8,15 @@
 2. Use the script.
 
 ```bash
-sdconv.py [-h] [-o OUT_DIR] [--rename | --no-rename] [--encode | --no-encode] [-c CUTOFF_SIZE] [--profile PROFILE] [--preset PRESET] INPUT [INPUT ...]
+usage: sdconv.py [-h] [-o OUT_DIR] [--rename | --no-rename] [--encode | --no-encode] [-c CUTOFF_SIZE]
+                 [--profile PROFILE] [--preset PRESET] [--force | --no-force | -f]
+                 INPUT [INPUT ...]
 
 Automatic SD video conversion script.
 
 positional arguments:
-  INPUT                 File or directory to convert. If a directory, will merge all files inside as chapters of a single file. If you want to glob, use PowerShell: '(Get-Item E:\*)[0..20]'.
+  INPUT                 File or directory to convert. If a directory, will merge all files inside as chapters of a
+                        single file. If you want to glob, use PowerShell: '(Get-Item E:\*)[0..20]'.
 
 options:
   -h, --help            show this help message and exit
@@ -27,6 +30,8 @@ options:
                         Skip files smaller than this size in MB. (default: 5)
   --profile PROFILE     Hybrid profile to use when deinterlacing. (default: profiles/pal.xml)
   --preset PRESET       Handbrake preset to use when encoding. (default: presets/x265.json)
+  --force, --no-force, -f
+                        Force overwrite existing output files. (default: False)
 ```
 
 ## Process

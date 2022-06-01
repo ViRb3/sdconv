@@ -5,7 +5,7 @@ import subprocess
 import os
 from tempfile import NamedTemporaryFile, TemporaryDirectory
 from typing import Any, Collection, List
-import datetime
+from datetime import datetime
 import xml.etree.ElementTree as ET
 
 profile_dir = Path(os.getenv("APPDATA", default="")).resolve() / "hybrid/profiles/global"
@@ -85,6 +85,10 @@ def should_skip(file: Path, cutoff_size: int) -> bool:
     return file.stat().st_size < cutoff_size * 1_000_000
 
 
+def get_file_from_ts(file: Path, ts: datetime):
+    return file.with_stem(f"{ts.year}-{ts.month:02d}-{ts.day:02d} {ts.hour:02d}_{ts.minute:02d}_{ts.second:02d}")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Automatic SD video conversion script.", formatter_class=argparse.ArgumentDefaultsHelpFormatter
@@ -135,6 +139,13 @@ if __name__ == "__main__":
         default="presets/x265.json",
         help="Handbrake preset to use when encoding.",
     )
+    parser.add_argument(
+        "--force",
+        "-f",
+        default=False,
+        action=argparse.BooleanOptionalAction,
+        help="Force overwrite existing output files.",
+    )
 
     args = parser.parse_args()
     inputs: List[Path] = [Path(a).resolve() for a in args.inputs]
@@ -144,13 +155,14 @@ if __name__ == "__main__":
     profile: Path = Path(args.profile)
     preset: Path = Path(args.preset)
     encode: bool = args.encode
+    force: bool = args.force
 
     for input in [*inputs, output_dir, profile, preset]:
         if not input.exists():
             raise Exception(f"Invalid path: {input}")
 
     for input in inputs:
-        print(f"Processing {input}")
+        print(f"Processing: {input}")
         if input.is_file():
             src_files = [input]
         elif input.is_dir():
@@ -162,8 +174,20 @@ if __name__ == "__main__":
         if len(src_files) < 1:
             continue
 
+        src_stem_ts_map = {f.stem: datetime.fromtimestamp(f.stat().st_mtime) for f in src_files}
+
         with TemporaryDirectory(dir=output_dir, prefix="hybrid-conv-") as converted_dir:
             converted_dir = Path(converted_dir)
+
+            first_file = sorted(src_files)[0]
+            final_file = output_dir / first_file.name
+            if rename:
+                final_file = get_file_from_ts(final_file, src_stem_ts_map[final_file.stem])
+            final_file = final_file.with_suffix(".final.mp4")
+
+            if final_file.exists() and not force:
+                print(f"Skipping existing output: {final_file}")
+                continue
 
             print(f"Running Hybrid...")
             run_hybrid(profile, converted_dir, *src_files)
@@ -171,11 +195,7 @@ if __name__ == "__main__":
             if rename:
                 print(f"Renaming files...")
                 for conv_file in converted_dir.glob("*"):
-                    src_file = next(f for f in src_files if conv_file.stem == f.stem)
-                    ts = datetime.datetime.fromtimestamp(src_file.stat().st_mtime)
-                    new_file = conv_file.with_stem(
-                        f"{ts.year}-{ts.month:02d}-{ts.day:02d} {ts.hour:02d}_{ts.minute:02d}_{ts.second:02d}"
-                    )
+                    new_file = get_file_from_ts(conv_file, src_stem_ts_map[conv_file.stem])
                     conv_file.rename(new_file)
                     print(f"{conv_file.name} -> {new_file.name}")
 
@@ -191,10 +211,12 @@ if __name__ == "__main__":
 
             if encode:
                 print(f"Running Handbrake...")
-                final_file = merged_file.with_suffix(".final.mp4")
-                run_handbrake(preset, final_file, merged_file)
-                final_file.rename(output_dir / final_file.name)
+                encoded_file = merged_file.with_suffix(".encoded.mp4")
+                run_handbrake(preset, encoded_file, merged_file)
+                encoded_file.replace(final_file)
             else:
-                merged_file.rename(output_dir / merged_file.name)
+                merged_file.replace(final_file)
+
+            print(f"Saved to: {final_file}")
 
     print("Done")
