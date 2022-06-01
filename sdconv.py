@@ -99,7 +99,7 @@ if __name__ == "__main__":
         metavar="INPUT",
         nargs="+",
         type=str,
-        help="File or directory to convert. If a directory, will merge all files inside as chapters of a single file. If you want to glob, use PowerShell: '(Get-Item E:\\*)[0..20]'.",
+        help="File or directory to convert. If a directory, will merge all files inside as chapters of a single file. If you want to glob, use PowerShell: '(Get-Item E:\\*)'.",
     )
     parser.add_argument(
         "-o",
@@ -136,7 +136,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--preset",
         type=str,
-        default="presets/x265.json",
+        default="presets/av1.json",
         help="Handbrake preset to use when encoding.",
     )
     parser.add_argument(
@@ -167,6 +167,8 @@ if __name__ == "__main__":
     for input in [*inputs, output_dir, profile, preset]:
         if not input.exists():
             raise Exception(f"Invalid path: {input}")
+
+    print(f"Queuing {len(inputs)} input files")
 
     for input in inputs:
         print(f"Processing: {input}")

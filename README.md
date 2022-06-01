@@ -16,7 +16,7 @@ Automatic SD video conversion script.
 
 positional arguments:
   INPUT                 File or directory to convert. If a directory, will merge all files inside as chapters of a
-                        single file. If you want to glob, use PowerShell: '(Get-Item E:\*)[0..20]'.
+                        single file. If you want to glob, use PowerShell: '(Get-Item E:\*)'.
 
 options:
   -h, --help            show this help message and exit
