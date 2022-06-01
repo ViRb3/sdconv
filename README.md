@@ -9,7 +9,7 @@
 
 ```bash
 usage: sdconv.py [-h] [-o OUT_DIR] [--rename | --no-rename] [--encode | --no-encode] [-c CUTOFF_SIZE]
-                 [--profile PROFILE] [--preset PRESET] [--force | --no-force | -f]
+                 [--profile PROFILE] [--preset PRESET] [--force | --no-force | -f] [--suffix SUFFIX]
                  INPUT [INPUT ...]
 
 Automatic SD video conversion script.
@@ -32,6 +32,7 @@ options:
   --preset PRESET       Handbrake preset to use when encoding. (default: presets/x265.json)
   --force, --no-force, -f
                         Force overwrite existing output files. (default: False)
+  --suffix SUFFIX       Suffix to use for output files. (default: .final.mp4)
 ```
 
 ## Process

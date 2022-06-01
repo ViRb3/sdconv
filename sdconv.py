@@ -146,6 +146,12 @@ if __name__ == "__main__":
         action=argparse.BooleanOptionalAction,
         help="Force overwrite existing output files.",
     )
+    parser.add_argument(
+        "--suffix",
+        type=str,
+        default=".final.mp4",
+        help="Suffix to use for output files.",
+    )
 
     args = parser.parse_args()
     inputs: List[Path] = [Path(a).resolve() for a in args.inputs]
@@ -156,6 +162,7 @@ if __name__ == "__main__":
     preset: Path = Path(args.preset)
     encode: bool = args.encode
     force: bool = args.force
+    final_suffix: str = args.suffix
 
     for input in [*inputs, output_dir, profile, preset]:
         if not input.exists():
@@ -183,7 +190,7 @@ if __name__ == "__main__":
             final_file = output_dir / first_file.name
             if rename:
                 final_file = get_file_from_ts(final_file, src_stem_ts_map[final_file.stem])
-            final_file = final_file.with_suffix(".final.mp4")
+            final_file = final_file.with_suffix(final_suffix)
 
             if final_file.exists() and not force:
                 print(f"Skipping existing output: {final_file}")
