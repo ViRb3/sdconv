@@ -4,8 +4,9 @@
 
 ## Usage
 
-1. Install Hybrid and run it at least once so it creates its directories.
-2. Use the script.
+1. Install [Hybrid](https://www.selur.de/downloads) and run it at least once so it creates its directories.
+2. Drop [HandbrakeCLI](https://github.com/HandBrake/handbrake-snapshots/releases/tag/win) to the current directory of the script. Use the latest snapshot if you want AV1 support.
+3. Use the script.
 
 ```bash
 usage: sdconv.py [-h] [-o OUT_DIR] [--rename | --no-rename] [--encode | --no-encode] [-c CUTOFF_SIZE]
