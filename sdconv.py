@@ -82,7 +82,7 @@ def run_mkvmerge(output: Path, *inputs: Path):
 
 
 def should_skip(file: Path, cutoff_size: int) -> bool:
-    return file.stat().st_size < cutoff_size * 1_000_000
+    return file.stat().st_size < cutoff_size * 1024 * 1024
 
 
 def get_file_from_ts(file: Path, ts: datetime):
@@ -125,7 +125,7 @@ if __name__ == "__main__":
         "--cutoff-size",
         default=5,
         type=int,
-        help="Skip files smaller than this size in MB.",
+        help="Skip files smaller than this size in MiB.",
     )
     parser.add_argument(
         "--profile",
