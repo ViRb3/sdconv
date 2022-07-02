@@ -324,7 +324,7 @@
     <HybridData name="outputParTyp" value="Custom" />
     <HybridData name="par" value="1.33" />
     <HybridData name="profiles" value="DNxHD 100" />
-    <HybridData name="reason" value="Profile PAR 1 and output PAR 1.33 differ.&#10;Profile doesn't have a bitrate for current output frame rate(25.000)." />
+    <HybridData name="reason" value="Profile PAR 0.888889 and output PAR 1.33 differ.&#10;Output scanorder is 'bottom field first', but the profile requires progressive content.&#10;Profile doesn't have a bitrate for current output frame rate(25.000)." />
     <HybridData name="resolution" value="1440x1080" />
     <HybridData name="sampling" value="422" />
     <HybridData name="supported" value="Profile name: DNxHD 100&#10;Resolution: 1440x1080, PAR: 1.33&#10;Supported bitrate@fps:  100MBit/s - 29.976 fps&#10;Interlaced: false&#10;Color sampling: 422&#10;Bit depth: 8-bit" />
@@ -678,7 +678,7 @@
     <HybridData name="adjustKeepResizeForSource" value="true" />
     <HybridData name="adjustSpeedToStream" value="false" />
     <HybridData name="alFullRange" value="true" />
-    <HybridData name="allowAVCCHDFramerates" value="false" />
+    <HybridData name="allowAVCCHDFramerates" value="true" />
     <HybridData name="alwaysUseVapoursynth" value="false" />
     <HybridData name="amDCTPrefetch" value="0" />
     <HybridData name="amDCTadapt" value="0" />
@@ -720,7 +720,7 @@
     <HybridData name="autoLevels" value="false" />
     <HybridData name="autoRunMPlayerIndex" value="false" />
     <HybridData name="autorefreshPreview" value="false" />
-    <HybridData name="avcCodec" value="true" />
+    <HybridData name="avcCodec" value="false" />
     <HybridData name="averageBlurRadC" value="3" />
     <HybridData name="averageBlurRadY" value="3" />
     <HybridData name="averageBlurU" value="copy" />
@@ -1036,7 +1036,7 @@
     <HybridData name="cropHeight" value="48" />
     <HybridData name="cropLeft" value="0" />
     <HybridData name="cropPreview" value="false" />
-    <HybridData name="cropResolution" value="64x64" />
+    <HybridData name="cropResolution" value="(48x48)" />
     <HybridData name="cropRight" value="0" />
     <HybridData name="cropStyle" value="Crop style:" />
     <HybridData name="cropStyleValue" value="Avisynth" />
@@ -1371,9 +1371,11 @@
     <HybridData name="hysteriaMinChange" value="0" />
     <HybridData name="hysteriaShow" value="false" />
     <HybridData name="hysteriaStrength" value="1" />
-    <HybridData name="ignoreHardwareRestriction" value="false" />
+    <HybridData name="ignoreHardwareRestriction" value="true" />
     <HybridData name="inputPar" value="false" />
+    <HybridData name="inputParHOverwrite" value="15" />
     <HybridData name="inputParTyp" value="manual" />
+    <HybridData name="inputParWOverwrite" value="16" />
     <HybridData name="interFrameAnalyse" value="{main:{search:{coarse:{distance:-8},type:2}},refine:[{thsad:250}]}" />
     <HybridData name="interFrameCustom" value="false" />
     <HybridData name="interFrameFps" value="25" />
@@ -1492,7 +1494,7 @@
     <HybridData name="mcdeintField" value="yadif=1" />
     <HybridData name="mcdeintFramestep" value="2" />
     <HybridData name="mcdeintMode" value="fast" />
-    <HybridData name="mcdeintOrder" value="0" />
+    <HybridData name="mcdeintOrder" value="1" />
     <HybridData name="mcdeintQuant" value="10" />
     <HybridData name="mdegrainBlksize" value="8" />
     <HybridData name="mdegrainIdx" value="1" />
@@ -1704,9 +1706,9 @@
     <HybridData name="otfmPP" value="motion-adaptive cubic interpolation deinterlacing" />
     <HybridData name="outputBitDepth" value="8" />
     <HybridData name="outputInterlaced" value="false" />
-    <HybridData name="outputPar" value="1:1" />
-    <HybridData name="outputParH" value="1" />
-    <HybridData name="outputParW" value="1" />
+    <HybridData name="outputPar" value="16:15" />
+    <HybridData name="outputParH" value="15" />
+    <HybridData name="outputParW" value="16" />
     <HybridData name="overWriteOutput" value="false" />
     <HybridData name="overWriteOutputFrameCount" value="false" />
     <HybridData name="overWriteOutputFrameCountValue" value="1" />
@@ -1716,11 +1718,12 @@
     <HybridData name="overWriteOutputHeightValue" value="1080" />
     <HybridData name="overWriteOutputWidth" value="false" />
     <HybridData name="overWriteOutputWidthValue" value="1920" />
+    <HybridData name="overwriteInputPAR" value="true" />
     <HybridData name="overwriteOutputLuminance" value="false" />
     <HybridData name="overwriteOutputLuminanceValue" value="tv" />
     <HybridData name="overwriteResizer" value="false" />
-    <HybridData name="overwriteScantyp" value="false" />
-    <HybridData name="overwriteScantypValue" value="progressive" />
+    <HybridData name="overwriteScantyp" value="true" />
+    <HybridData name="overwriteScantypValue" value="bottom field first" />
     <HybridData name="pSharpenStrength" value="25" />
     <HybridData name="pSharpenSuperSamplingX" value="1" />
     <HybridData name="pSharpenSuperSamplingY" value="1" />
@@ -2236,7 +2239,7 @@
     <HybridData name="vfTemporalDenoise" />
     <HybridData name="vfVerticalDeblocking" />
     <HybridData name="videoInterlaced" value="false" />
-    <HybridData name="videoRestrictions" value="0" />
+    <HybridData name="videoRestrictions" value="1" />
     <HybridData name="vidstabAccuracy" value="15" />
     <HybridData name="vidstabCrop" value="keep" />
     <HybridData name="vidstabFrame" />
@@ -3579,9 +3582,9 @@
     <HybridData name="vsFillDropsRIFEUHD" value="false" />
     <HybridData name="vsFillDropsRanges" />
     <HybridData name="vsFillDropsThreshold" value="0.3" />
-    <HybridData name="vsFilterOrder" value="DeCross ### Deinterlace ### FieldMatch (VFM) ### FieldMatch (TFM) ### FillDrops ### sRestore ### SelectEvery ### SelectRangeEvery ### LUTDeCrawl ### DotKill ### DeDot ### ColorMatrix ### Levels ### Tweak ### Grayworld ### GLSLSaturation ### Limiter ### SmoothLevels ### SmoothGrad ### HDR10ToSDR ### ToneMap ### HDR10ToSDRdg ### TimeCube ### AutoWhite ### ChromaShift ### ChromaShiftSP ### Fades ### FixChromaBleeding ### VInverse ### VInverse2 ### EdgeFixer ### BalanceBorders ### DeSpot ### SpotLess ### KillerSpots ### Deblock ### Deblock_QED ### DeblockPP7 ### Stab ### Crop ### Rotation ### LUTDeRainbow ### BiFrost ### SSIQ ### Retinex ### STPresso ### DeGrainMedian ### SMDegrain ### MCDegrainSharp ### MLDegrain ### TemporalDegrain ### TemporalDegrain2 ### RemoveGrain ### RemoveDirt ### VagueDenoiser ### DFTTest ### FluxSmooth ### FFT3DFilter ### KNLMeansCL ### CTMF ### MCTemporalDenoise ### TTempSmooth ### HQDN3D ### MiniDeen ### mClean ### QTGMCFilter ### Cnr2 ### CCD ### HINet ### GLSLBilateral ### FrFun7 ### WNNM ### Flash3kDB ### GradFun3Mod ### PlaceboDeband ### FineSharp ### AWarpSharp2 ### MSharpen ### PSharpen ### CAS ### GLSLCAS ### LSFMod ### DetailSharpen ### GLSLAdaptiveSharpen ### GLSLLumaSharpen ### GLSLDeblur ### DeHalo_Alpha ### YAHR ### BlindDeHalo3 ### EdgeCleaner ### FineDehalo ### LGhost ### HQDering ### MDering ### GLSLAntiRing ### Hysteria ### FastLineDarken ### Toon ### GLSLDarken ### GLSLThinLine ### Frameinterpolation ### Resize ### DAA ### DAAMod ### Santiag ### SangNom ### EEDIAA ### NNEDI3AA ### MAA ### AAF ### GLSLFilter ### AddGrain ### GrainFactory ### GLSLFilmGrain ### Letterboxing ### AddingSubtitle ### AddingLogo" />
+    <HybridData name="vsFilterOrder" value="DeCross ### Deinterlace ### FieldMatch (VFM) ### FieldMatch (TFM) ### FillDrops ### sRestore ### SelectEvery ### SelectRangeEvery ### LUTDeCrawl ### DotKill ### DeDot ### ColorMatrix ### Levels ### Tweak ### Grayworld ### GLSLSaturation ### Limiter ### SmoothLevels ### SmoothGrad ### HDR10ToSDR ### ToneMap ### HDR10ToSDRdg ### TimeCube ### AutoWhite ### ChromaShift ### ChromaShiftSP ### Fades ### FixChromaBleeding ### VInverse ### VInverse2 ### EdgeFixer ### BalanceBorders ### DeSpot ### SpotLess ### KillerSpots ### Deblock ### Deblock_QED ### DeblockPP7 ### Stab ### StabilizeIT ### ReduceFlicker ### SDeflicker ### Crop ### Rotation ### LUTDeRainbow ### BiFrost ### SSIQ ### RainbowSmooth ### Retinex ### STPresso ### DeGrainMedian ### SMDegrain ### MCDegrainSharp ### MLDegrain ### TemporalDegrain ### TemporalDegrain2 ### RemoveGrain ### RemoveDirt ### VagueDenoiser ### DFTTest ### FluxSmooth ### FFT3DFilter ### KNLMeansCL ### CTMF ### MCTemporalDenoise ### TTempSmooth ### HQDN3D ### MiniDeen ### mClean ### QTGMCFilter ### Cnr2 ### CCD ### HINet ### GLSLBilateral ### FrFun7 ### WNNM ### Flash3kDB ### GradFun3Mod ### PlaceboDeband ### FineSharp ### AWarpSharp2 ### MSharpen ### PSharpen ### CAS ### GLSLCAS ### LSFMod ### DetailSharpen ### GLSLAdaptiveSharpen ### GLSLLumaSharpen ### GLSLDeblur ### DeHalo_Alpha ### YAHR ### BlindDeHalo3 ### EdgeCleaner ### FineDehalo ### LGhost ### HQDering ### MDering ### GLSLAntiRing ### Hysteria ### FastLineDarken ### Toon ### GLSLDarken ### GLSLThinLine ### Frameinterpolation ### Resize ### DAA ### DAAMod ### Santiag ### SangNom ### EEDIAA ### NNEDI3AA ### MAA ### AAF ### GLSLFilter ### AddGrain ### GrainFactory ### GLSLFilmGrain ### Letterboxing ### AddingSubtitle ### AddingLogo" />
     <HybridData name="vsFilterOrderFrame" />
-    <HybridData name="vsFilterQueue" value="Deinterlace:*,*:QTGMC (Vapoursynth):*,*:vsQTGMCBob;false:*,*:vsQTGMCCPreset;Slower:*,*:vsQTGMCCustomStack;1:*,*:vsQTGMCDenoiser;auto:*,*:vsQTGMCEzdValue;0.00:*,*:vsQTGMCEzkValue;0.00:*,*:vsQTGMCInputTyp;0:*,*:vsQTGMCLossless;off:*,*:vsQTGMCMatchEnhance;0.50:*,*:vsQTGMCMatchPreset;default:*,*:vsQTGMCMatchPreset2;default:*,*:vsQTGMCNoisePreset;Fast:*,*:vsQTGMCOpenCL;false:*,*:vsQTGMCOpenCLDevice;-1:*,*:vsQTGMCOrder;-1:*,*:vsQTGMCPadToMod16;false:*,*:vsQTGMCPreset;Fast:*,*:vsQTGMCSelect;Even:*,*:vsQTGMCSharpness;1.0:*,*:vsQTGMCShow;false:*,*:vsQTGMCShowNoise;false:*,*:vsQTGMCSourceMatch;off:*,*:vsQTGMCTr2;1:*,*:vsQTGMCUseEzd;false:*,*:vsQTGMCUseEzk;false:*,*:vsQTGMCustom; ### Crop:*,*:none ### Rotation:*,*:flipVideo;false:*,*:flipVideoHorizontal;false:*,*:rotate;false:*,*:rotateValue;off ### Resize:*,*:none ### Letterboxing:*,*:none ### AddingSubtitle:*,*:none" />
+    <HybridData name="vsFilterQueue" value="Deinterlace:*,*:QTGMC (Vapoursynth):*,*:vsQTGMCBob;true:*,*:vsQTGMCCPreset;Slow:*,*:vsQTGMCCustomStack;1:*,*:vsQTGMCDenoiser;auto:*,*:vsQTGMCEzdValue;0.00:*,*:vsQTGMCEzkValue;0.00:*,*:vsQTGMCInputTyp;0:*,*:vsQTGMCLossless;off:*,*:vsQTGMCMatchEnhance;0.50:*,*:vsQTGMCMatchPreset;default:*,*:vsQTGMCMatchPreset2;default:*,*:vsQTGMCNoisePreset;Fast:*,*:vsQTGMCOpenCL;false:*,*:vsQTGMCOpenCLDevice;-1:*,*:vsQTGMCOrder;-1:*,*:vsQTGMCPadToMod16;false:*,*:vsQTGMCPreset;Slow:*,*:vsQTGMCSelect;Even:*,*:vsQTGMCSharpness;1.0:*,*:vsQTGMCShow;false:*,*:vsQTGMCShowNoise;false:*,*:vsQTGMCSourceMatch;off:*,*:vsQTGMCTr2;1:*,*:vsQTGMCUseEzd;false:*,*:vsQTGMCUseEzk;false:*,*:vsQTGMCustom; ### Crop:*,*:none ### Rotation:*,*:flipVideo;false:*,*:flipVideoHorizontal;false:*,*:rotate;false:*,*:rotateValue;off ### Resize:*,*:none ### Letterboxing:*,*:none ### AddingSubtitle:*,*:none" />
     <HybridData name="vsFilterQueueCustom" />
     <HybridData name="vsFilterQueueOrderStack" value="0" />
     <HybridData name="vsFineDeHaloFrame" />
@@ -5026,8 +5029,8 @@
     <HybridData name="vsPreferLSMASH" value="true" />
     <HybridData name="vsPreferLibAvOverDG" value="false" />
     <HybridData name="vsPreferLibAvOverFFms2" value="true" />
-    <HybridData name="vsQTGMCBob" value="false" />
-    <HybridData name="vsQTGMCCPreset" value="Slower" />
+    <HybridData name="vsQTGMCBob" value="true" />
+    <HybridData name="vsQTGMCCPreset" value="Slow" />
     <HybridData name="vsQTGMCCustomStack" value="1" />
     <HybridData name="vsQTGMCDenoiser" value="auto" />
     <HybridData name="vsQTGMCEzdValue" value="0" />
@@ -5088,7 +5091,7 @@
     <HybridData name="vsQTGMCOpenCLDevice" value="-1" />
     <HybridData name="vsQTGMCOrder" value="-1" />
     <HybridData name="vsQTGMCPadToMod16" value="false" />
-    <HybridData name="vsQTGMCPreset" value="Fast" />
+    <HybridData name="vsQTGMCPreset" value="Slow" />
     <HybridData name="vsQTGMCSelect" value="Even" />
     <HybridData name="vsQTGMCSharpness" value="1" />
     <HybridData name="vsQTGMCShow" value="false" />
@@ -6335,7 +6338,7 @@
     <HybridData name="createSampleFile" value="false" />
     <HybridData name="createTempSubFolderPerJob" value="false" />
     <HybridData name="cuda" value=".\64bit\cuda.exe" />
-    <HybridData name="customMkvmergeAddition" />
+    <HybridData name="customMkvmergeAddition" value="--aspect-ratio 0:4/3 --colour-matrix-coefficients 0:5 --colour-transfer-characteristics 0:1 --colour-primaries 0:5" />
     <HybridData name="cutSupport" value="false" />
     <HybridData name="dashCompatible" value="false" />
     <HybridData name="dashForceSegments" value="false" />
@@ -6346,7 +6349,7 @@
     <HybridData name="dashSingleTrack" value="false" />
     <HybridData name="dashSubsegmentDuration" value="500" />
     <HybridData name="dcaenc" value=".\64bit\ffdcaenc.exe" />
-    <HybridData name="defaultContainer" value="mp4" />
+    <HybridData name="defaultContainer" value="mkv" />
     <HybridData name="defaultInputPath" />
     <HybridData name="defaultOutputPath" />
     <HybridData name="defaultTempPath" value="C:\Users\User\AppData\Local\Temp" />
@@ -6465,7 +6468,7 @@
     <HybridData name="mkvNoLacing" value="false" />
     <HybridData name="mkvNoSimpleBlocks" value="false" />
     <HybridData name="mkvOnlyForcedSubtitles" value="false" />
-    <HybridData name="mkvTags" value="SUBJECT" />
+    <HybridData name="mkvTags" value="ART_DIRECTOR" />
     <HybridData name="mkvWhiteColorCoordinatesFrame" />
     <HybridData name="mkvWhiteColorCoordinatesX" value="0" />
     <HybridData name="mkvWhiteColorCoordinatesY" value="0" />
@@ -6613,7 +6616,7 @@
   </HybridModel>
   <HybridModel name="JobManagerModel" version="210724">
     <HybridData name="askForConfirmation" value="false" />
-    <HybridData name="autoDeleteFinished" value="false" />
+    <HybridData name="autoDeleteFinished" value="true" />
     <HybridData name="autoSaveOnFinished" value="false" />
     <HybridData name="deleteInputOnJobFinished" value="false" />
     <HybridData name="deleteOldWithSameOutput" value="false" />
@@ -6624,7 +6627,7 @@
     <HybridData name="jobExternalCall" />
     <HybridData name="minimizeJobCL" value="true" />
     <HybridData name="onJobFinishedDo" value="do nothing" />
-    <HybridData name="onQueueFinishedDo" value="do nothing" />
+    <HybridData name="onQueueFinishedDo" value="close" />
     <HybridData name="parallelJobs" value="1" />
     <HybridData name="parallelSubJobCount" value="4" />
     <HybridData name="parallelSubJobs" value="false" />
@@ -6741,7 +6744,7 @@
     <HybridData name="ImageSequence" value="false" />
     <HybridData name="allSubtitles" value="false" />
     <HybridData name="analyseFirstVob" value="false" />
-    <HybridData name="audioHandling" value="ignore" />
+    <HybridData name="audioHandling" value="passthrough all" />
     <HybridData name="autoAddAllSubtitle" value="false" />
     <HybridData name="autoCropping" value="false" />
     <HybridData name="autoDVDSelect" value="longest" />
@@ -6751,13 +6754,13 @@
     <HybridData name="cutStack" value="1" />
     <HybridData name="cutSupport" value="false" />
     <HybridData name="cutkeyEnd" />
-    <HybridData name="defaultContainer" value="mp4" />
+    <HybridData name="defaultContainer" value="mkv" />
     <HybridData name="encodeEachTitle" value="false" />
     <HybridData name="extractNotAllTimecodesFromInput" value="true" />
     <HybridData name="extractTimecodesFromInput" value="false" />
     <HybridData name="generateChapterInfo" value="false" />
     <HybridData name="generateCutStartEndFrameInfo" value="false" />
-    <HybridData name="generateOutputName" value="false" />
+    <HybridData name="generateOutputName" value="true" />
     <HybridData name="generateStructure" value="false" />
     <HybridData name="generateTitleInfo" value="false" />
     <HybridData name="ignoreInputDelay" value="false" />
@@ -6787,7 +6790,7 @@
     <HybridData name="useOnlyLongestVideoFromMpls" value="false" />
     <HybridData name="useTitleTagForNameGeneration" value="false" />
     <HybridData name="vfw64bitDecoders" value="VIDC.ULH0 ### VIDC.ULH2 ### VIDC.ULH4 ### VIDC.ULRA ### VIDC.ULRG ### VIDC.ULY0 ### VIDC.ULY2 ### VIDC.ULY4 ### VIDC.UMH2 ### VIDC.UMH4 ### VIDC.UMRA ### VIDC.UMRG ### VIDC.UMY2 ### VIDC.UMY4 ### VIDC.UQRA ### VIDC.UQRG ### VIDC.UQY0 ### VIDC.UQY2 ### vidc.cvid ### vidc.i420 ### vidc.iyuv ### vidc.mrle ### vidc.msvc ### vidc.uyvy ### vidc.yuy2 ### vidc.yvu9 ### vidc.yvyu" />
-    <HybridData name="videoHandling" value="x264" />
+    <HybridData name="videoHandling" value="UT Video" />
     <HybridData name="warnOnClose" value="true" />
   </HybridModel>
   <HybridModel name="MuxingModel" version="210724">
@@ -7049,7 +7052,7 @@
     <HybridData name="outputColorSpace" value="i422" />
     <HybridData name="outputLuminanceScale" value="tv" />
     <HybridData name="outputParTyp" value="Custom" />
-    <HybridData name="pixelAspectRatio" value="1:1" />
+    <HybridData name="pixelAspectRatio" value="16:15" />
     <HybridData name="proResAlphaBits" value="16" />
     <HybridData name="proResCustomQuantMatrix" value="auto" />
     <HybridData name="proResMBperSlice" value="2" />
@@ -7078,7 +7081,7 @@
     <HybridData name="videoHeight" value="48" />
     <HybridData name="videoInputIsPresent" value="false" />
     <HybridData name="videoWidth" value="48" />
-    <HybridData name="video_scanorder" value="progressive" />
+    <HybridData name="video_scanorder" value="bottom field first" />
     <HybridData name="vuiChromaLocation" value="false" />
     <HybridData name="vuiColorMatrix" value="true" />
     <HybridData name="vuiColorMatrixValue" value="auto" />
@@ -7288,7 +7291,7 @@
     <HybridData name="useAssOutlineColor" value="false" />
     <HybridData name="useAssPrimaryColor" value="false" />
     <HybridData name="useAssSecondaryColor" value="false" />
-    <HybridData name="videoMode" value="x264" />
+    <HybridData name="videoMode" value="UT Video" />
   </HybridModel>
   <HybridModel name="SvtAv1Model" version="210724">
     <HybridData name="adaptiveQuantization" value="off" />
@@ -7520,10 +7523,10 @@
     <HybridData name="inputColorMatrix" />
     <HybridData name="interlacedInput" value="false" />
     <HybridData name="outputColorSpace" value="i420" />
-    <HybridData name="outputColorSpaceAndMatrix" value="ULH0" />
+    <HybridData name="outputColorSpaceAndMatrix" value="ULYO" />
     <HybridData name="outputParTyp" value="Custom" />
     <HybridData name="prediction" value="left" />
-    <HybridData name="signaledColorMatrix" value="BT.709" />
+    <HybridData name="signaledColorMatrix" value="BT.601" />
     <HybridData name="slices" value="0" />
     <HybridData name="videoFramecount" value="0" />
     <HybridData name="vuiChromaLocation" value="false" />
