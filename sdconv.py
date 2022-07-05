@@ -118,7 +118,7 @@ if __name__ == "__main__":
         "--encode",
         default=True,
         action=argparse.BooleanOptionalAction,
-        help="Encode the video after deinterlacing.",
+        help="Encode the video after deinterlacing. If disabled, saves the raw video file.",
     )
     parser.add_argument(
         "-c",
@@ -152,6 +152,18 @@ if __name__ == "__main__":
         default=".final.mp4",
         help="Suffix to use for output files.",
     )
+    parser.add_argument(
+        "--keep-raw",
+        default=False,
+        action=argparse.BooleanOptionalAction,
+        help="Keep raw video files when encoding. Will be reused to speed up subsequent encodes.",
+    )
+    parser.add_argument(
+        "--raw-suffix",
+        type=str,
+        default=".raw.mkv",
+        help="Suffix to use for raw files, if applicable.",
+    )
 
     args = parser.parse_args()
     inputs: List[Path] = [Path(a).resolve() for a in args.inputs]
@@ -163,6 +175,8 @@ if __name__ == "__main__":
     encode: bool = args.encode
     force: bool = args.force
     final_suffix: str = args.suffix
+    keep_raw: bool = args.keep_raw
+    raw_suffix: str = args.raw_suffix
 
     for input in [*inputs, output_dir, profile, preset]:
         if not input.exists():
@@ -179,6 +193,8 @@ if __name__ == "__main__":
     print(f"Encoding: {encode}")
     print(f"Force overwrite: {force}")
     print(f"Output file suffix: {final_suffix}")
+    print(f"Keep raw video files: {keep_raw}")
+    print(f"Raw file suffix: {raw_suffix}")
     print()
 
     for input in inputs:
@@ -196,47 +212,54 @@ if __name__ == "__main__":
 
         src_stem_ts_map = {f.stem: datetime.fromtimestamp(f.stat().st_mtime) for f in src_files}
 
-        with TemporaryDirectory(dir=output_dir, prefix="hybrid-conv-") as converted_dir:
+        with TemporaryDirectory(dir=output_dir, prefix="sdconv-") as converted_dir:
             converted_dir = Path(converted_dir)
 
             first_file = sorted(src_files)[0]
             final_file = output_dir / first_file.name
             if rename:
                 final_file = get_file_from_ts(final_file, src_stem_ts_map[final_file.stem])
+            raw_file = final_file.with_suffix(raw_suffix)
             final_file = final_file.with_suffix(final_suffix)
 
             if final_file.exists() and not force:
                 print(f"Skipping existing output: {final_file}")
                 continue
 
-            print(f"Running Hybrid...")
-            run_hybrid(profile, converted_dir, *src_files)
-
-            if rename:
-                print(f"Renaming files...")
-                for conv_file in converted_dir.glob("*"):
-                    new_file = get_file_from_ts(conv_file, src_stem_ts_map[conv_file.stem])
-                    conv_file.rename(new_file)
-                    print(f"{conv_file.name} -> {new_file.name}")
-
-            if len(list(converted_dir.glob("*"))) > 1:
-                print(f"Merging files...")
-                conv_files = sorted(converted_dir.glob("*"))
-                merged_file = conv_files[0].with_suffix(".merged.mkv")
-                run_mkvmerge(merged_file, *conv_files)
-                for f in conv_files:
-                    os.remove(f)
+            if raw_file.exists() and not force:
+                print(f"Found existing raw file, reusing: {raw_file}")
+                merged_file = raw_file
             else:
-                merged_file = next(converted_dir.glob("*"))
+                print(f"Running Hybrid...")
+                run_hybrid(profile, converted_dir, *src_files)
+
+                if rename:
+                    print(f"Renaming files...")
+                    for conv_file in converted_dir.glob("*"):
+                        new_file = get_file_from_ts(conv_file, src_stem_ts_map[conv_file.stem])
+                        conv_file.rename(new_file)
+                        print(f"{conv_file.name} -> {new_file.name}")
+
+                if len(list(converted_dir.glob("*"))) > 1:
+                    print(f"Merging files...")
+                    conv_files = sorted(converted_dir.glob("*"))
+                    merged_file = conv_files[0].with_suffix(".merged.mkv")
+                    run_mkvmerge(merged_file, *conv_files)
+                    for f in conv_files:
+                        os.remove(f)
+                else:
+                    merged_file = next(converted_dir.glob("*"))
 
             if encode:
                 print(f"Running Handbrake...")
-                encoded_file = merged_file.with_suffix(".encoded.mp4")
+                encoded_file = converted_dir / final_file.with_suffix(".encoded.mp4").name
                 run_handbrake(preset, encoded_file, merged_file)
                 encoded_file.replace(final_file)
+                if keep_raw:
+                    merged_file.replace(raw_file)
+                print(f"Saved to: {final_file}")
             else:
-                merged_file.replace(final_file)
-
-            print(f"Saved to: {final_file}")
+                merged_file.replace(raw_file)
+                print(f"Saved to: {raw_file}")
 
     print("Done")
