@@ -4,7 +4,7 @@
 
 ## Usage
 
-1. Install Hybrid 2022.07.01-195722 or later
+1. Install Hybrid 2022.07.23.1 or later
 2. Run Hybrid
    1. Save a dummy global profile to ensure all directories are created
    2. Ensure the job queue is completely empty
@@ -72,17 +72,13 @@ It is crucual to get these ratios right, otherwise the video dimensions will be 
 
 The chromaticities of NTSC and PAL are different, although both follow the ITU BT.601 standard. It is crucial to get them right, otherwise you will get skewed colors. This applies to both encoding and decoding. When decoding, you may need to override these properties if they are missing or incorrect. When encoding, you must explicitly save each of these properties in the video container, otherwise decoders will try to guess them, and that fails badly if the video is resized and/or deinterlaced with frame bobbing (doubling).
 
-- BT.601 Primaries
-  - NTSC
-    - SMPTE 170M (usually), BT.470M (obsolete)
-  - PAL
-    - BT.470B/G
-- BT.601 Matrix
-  - SMPTE 170M, BT.470B/G (all identical)
-- BT.601 Transfer
-  - BT.470M, SMPTE 170M, BT.470B/G, BT.709 (all identical)
+| Standard          | Matrix     | Primaries  | Transfer |
+| ----------------- | ---------- | ---------- | -------- |
+| BT.601 PAL        | BT.470BG   | BT.470BG   | BT.709   |
+| BT.601 NTSC       | SMPTE 170M | SMPTE 170M | BT.709   |
+| BT.601 NTSC (old) | BT.470M    | BT.470M    | BT.709   |
 
-Source: https://forum.doom9.org/showthread.php?p=1681479#post1681479
+Source: [H.273 specification](https://www.itu.int/rec/T-REC-H.273/en)
 
 ## Encoder observations
 
